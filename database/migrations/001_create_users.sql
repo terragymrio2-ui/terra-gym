@@ -1,0 +1,20 @@
+CREATE TABLE users (
+  id                   INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  first_name           VARCHAR(80)  NOT NULL,
+  last_name            VARCHAR(80)  NOT NULL,
+  email                VARCHAR(190) NOT NULL,
+  password_hash        VARCHAR(255) NOT NULL,
+  role                 ENUM('ADMIN','PROFESOR','USUARIO') NOT NULL,
+  phone                VARCHAR(20)  NULL,
+  dni                  VARCHAR(15)  NULL,
+  birth_date           DATE         NULL,
+  is_active            TINYINT(1)   NOT NULL DEFAULT 1,
+  must_change_password TINYINT(1)   NOT NULL DEFAULT 1,
+  notify_email         TINYINT(1)   NOT NULL DEFAULT 1,
+  created_at           TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at           TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  UNIQUE KEY uq_users_email (email),
+  UNIQUE KEY uq_users_dni (dni),
+  KEY idx_users_role_active (role, is_active)
+);
